@@ -5,16 +5,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import ca.ubc.cs304.database.DatabaseConnectionHandler;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+        DatabaseConnectionHandler dbHandler = new DatabaseConnectionHandler();
+        boolean didConnect = dbHandler.login("ora_musashah","a12748661");
 
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        primaryStage.setTitle("test");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
+        if (didConnect) {
+            Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+            primaryStage.setTitle("test");
+            primaryStage.setScene(new Scene(root, 600, 400));
+            primaryStage.show();
+        } else {
+            System.out.println("You have exceeded your number of allowed attempts");
+            System.exit(-1);
+        }
     }
 
 
