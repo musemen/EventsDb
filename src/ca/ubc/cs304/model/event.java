@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.sql.Date;
 
-public class Event {
+public class event {
 
     private String eventID;
     private String venueID;
@@ -12,7 +12,7 @@ public class Event {
     private Date endTime;
     private String url;
 
-    public Event(String e, String v, String o, String n, Date s, Date ed, String u){
+    public event(String e, String v, String o, String n, Date s, Date ed, String u){
         this.eventID = e;
         this.venueID = v;
         this.organizationID = o;
