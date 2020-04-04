@@ -3,6 +3,8 @@ package ca.ubc.cs304.database;
 import ca.ubc.cs304.model.BranchModel;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import ca.ubc.cs304.model.*;
 
@@ -456,9 +458,10 @@ public class DatabaseConnectionHandler {
 							+ "AND PerformsAt.EventId = Event.EventId");
 
 			while (rs.next()) {
-				foundEvents.add(new event(rs.getString("EventId"), rs.getString("VenueId"),
-						rs.getString("OrganizationID"), rs.getString("Name"), rs.getDate("StartTime"),
-						rs.getDate("EndTime"), rs.getString("Url")));
+				foundEvents
+						.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
+								rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
+								new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
 			}
 			rs.close();
 			s.close();
@@ -484,6 +487,64 @@ public class DatabaseConnectionHandler {
 			rollbackConnection();
 		}
 		return status;
+	}
+
+	public ArrayList<event> selectEvents(String eid, String vid, String oid, String n, String s, String e, String u)
+			throws ParseException {
+		ArrayList<event> found = new ArrayList<event>();
+		ArrayList<String> conditions = new ArrayList<String>();
+		try {
+			if (!eid.isEmpty()) {
+				conditions.add("EventId = " + eid);
+			}
+			if (!vid.isEmpty()) {
+				conditions.add("VenueId = " + vid);
+			}
+			if (!oid.isEmpty()) {
+				conditions.add("OrganizationID = " + oid);
+			}
+			if (!n.isEmpty()) {
+				conditions.add("Name = " + n);
+			}
+			if (!u.isEmpty()) {
+				conditions.add("Url = " + u);
+			}
+			String query = "SELECT * FROM Event WHERE " + String.join(" AND", conditions);
+			PreparedStatement ps = connection.prepareStatement(query);
+
+			
+			if(!s.isEmpty()){
+				query.concat(" AND StartTime = ?");
+				ps = connection.prepareStatement(query);
+				java.util.Date st = new SimpleDateFormat("yyyy-MM-dd").parse(s);
+				ps.setDate(1, new java.sql.Date(st.getTime()));
+			}
+			if(!e.isEmpty()){
+				query.concat(" AND EndTime = ?");
+				ps = connection.prepareStatement(query);
+				java.util.Date et = new SimpleDateFormat("yyyy-MM-dd").parse(e);
+				if(!s.isEmpty()){
+					ps.setDate(2, new java.sql.Date(et.getTime()));
+				} else {
+					ps.setDate(1, new java.sql.Date(et.getTime()));
+				}
+			}
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				found.add(new event(rs.getString("EventId"), rs.getString("VenueId"),
+				rs.getString("OrganizationID"), rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
+				new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
+			}
+
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			System.out.println(EXCEPTION_TAG + " " + ex.getMessage());
+			rollbackConnection();
+		}
+
+		return found;
 	}
 
 	public boolean login(String username, String password) {
