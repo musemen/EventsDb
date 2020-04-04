@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="339.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.Bank">
+   <children>
+      <Button layoutX="376.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Insert Rating" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button layoutX="48.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Delete Rating" GridPane.columnIndex="2" />
+      <Button layoutX="49.0" layoutY="129.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="141.0" text="Update Rating" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Button layoutX="209.0" layoutY="129.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Find Events" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button layoutX="376.0" layoutY="129.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Participant count" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Button layoutX="209.0" layoutY="46.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="149.0" text="Average Rating per Event" GridPane.columnIndex="1" />
+      <Button layoutX="376.0" layoutY="210.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="test" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Button layoutX="48.0" layoutY="210.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="test" />
+      <Button layoutX="231.0" layoutY="210.0" mnemonicParsing="false" text="List All Tables" />
+   </children>
+</AnchorPane>
