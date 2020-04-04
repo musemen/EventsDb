@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="372.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageUsers">
+<children>
+    <Label layoutX="355.0" layoutY="10.0" prefHeight="19.0" prefWidth="160.0" style="-fx-font: NORMAL 15 Tahoma;" text="Update Rating">
+    </Label>
+
+    <TextField fx:id="EIDUpdate" layoutX="20.0" layoutY="56.0" promptText="Rating Id" />
+    <TextField fx:id="VAL" layoutX="223.0" layoutY="56.0" promptText="Value" />
+    <TextField fx:id="DESC" layoutX="418.0" layoutY="56.0" promptText="Description" />
+    <Button layoutX="629.0" layoutY="56.0" mnemonicParsing="false" onAction="#updateRating" prefHeight="27.0" prefWidth="149.0" text="Update" />
+
+    <Label layoutX="355.0" layoutY="117.0" prefHeight="19.0" prefWidth="149.0" style="-fx-font: NORMAL 15 Tahoma;" text="Search">
+    </Label>
+    <TextField fx:id="EID" layoutX="223.0" layoutY="149.0" promptText="Event Id" />
+    <TextField fx:id="VID" layoutX="20.0" layoutY="149.0" promptText="Venue Id" />
+    <TextField fx:id="STIME" layoutX="223.0" layoutY="196.0" promptText="Start Time" />
+    <TextField fx:id="ETIME" layoutX="418.0" layoutY="149.0" promptText="End Time" />
+    <TextField fx:id="OID" layoutX="20.0" layoutY="196.0" promptText="Organization Id" />
+    <TextField fx:id="Name" layoutX="418.0" layoutY="196.0" promptText="Name" />
+    <TextField fx:id="URL" layoutX="20.0" layoutY="244.0" promptText="URL" />
+    <Button layoutX="629.0" layoutY="183.0" mnemonicParsing="false" onAction="#SearchSelection" prefHeight="27.0" prefWidth="149.0" text="Search" />
+
+
+    <Separator layoutX="6.0" layoutY="113.0" prefHeight="4.0" prefWidth="900.0" />
+
+
+
+
+
+    <Separator layoutX="6.0" layoutY="285.0" prefHeight="4.0" prefWidth="900.0" />
+      <TextField fx:id="KEYWORD" layoutX="20.0" layoutY="313.0" promptText="KeyWord" />
+      <CheckBox fx:id="EIDCHECK" layoutX="190.0" layoutY="318.0" mnemonicParsing="false" text="Event Id" />
+      <CheckBox fx:id="VIDCHECK" layoutX="267.0" layoutY="318.0" mnemonicParsing="false" text="Venue Id" />
+      <CheckBox fx:id="STIMECHECK" layoutX="344.0" layoutY="318.0" mnemonicParsing="false" text="Start Time" />
+      <CheckBox fx:id="ETIMECHECK" layoutX="430.0" layoutY="318.0" mnemonicParsing="false" text="End Time" />
+      <CheckBox fx:id="NAMECHECK" layoutX="515.0" layoutY="318.0" mnemonicParsing="false" text="Name" />
+      <CheckBox fx:id="URLCHECK" layoutX="579.0" layoutY="318.0" mnemonicParsing="false" text="URL" />
+      <CheckBox fx:id="OIDCHECK" layoutX="629.0" layoutY="318.0" mnemonicParsing="false" text="Organization Id" />
+      <Button layoutX="735.0" layoutY="327.0" mnemonicParsing="false" onAction="#SearchProjection" text="Search" />
+
+
+
+</children>
+</AnchorPane>

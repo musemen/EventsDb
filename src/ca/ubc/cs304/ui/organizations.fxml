@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="377.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageOrganizations">
+<children>
+    <Label layoutX="355.0" layoutY="10.0" prefHeight="19.0" prefWidth="160.0" style="-fx-font: NORMAL 15 Tahoma;" text="Add Event">
+    </Label>
+
+    <TextField fx:id="EID" layoutX="20.0" layoutY="56.0" promptText="Event Id" />
+    <TextField fx:id="VID" layoutX="418.0" layoutY="56.0" promptText="Venue Id" />
+    <TextField fx:id="OID" layoutX="20.0" layoutY="136.0" promptText="OrganizationId" />
+    <TextField fx:id="NAME" layoutX="223.0" layoutY="96.0" promptText="Name" />
+    <TextField fx:id="STIME" layoutX="20.0" layoutY="96.0" promptText="StartTime" />
+    <TextField fx:id="ETIME" layoutX="418.0" layoutY="96.0" promptText="EndTime" />
+    <TextField fx:id="URL" layoutX="223.0" layoutY="56.0" prefWidth="161.0" promptText="Url" />
+    <Button layoutX="594.0" layoutY="70.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="19.0" prefWidth="92.0" text="Add" />
+
+    <Separator layoutX="6.0" layoutY="170.0" prefHeight="4.0" prefWidth="900.0" />
+
+
+    <Label layoutX="309.0" layoutY="185.0" prefHeight="19.0" prefWidth="149.0" style="-fx-font: NORMAL 15 Tahoma;" text="Delete Event">
+    </Label>
+
+    <TextField fx:id="EIDDel" layoutX="195.0" layoutY="209.0" prefHeight="27.0" prefWidth="149.0" promptText="Event Id" />
+    <Button layoutX="371.0" layoutY="209.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="27.0" prefWidth="149.0" text="Delete" />
+
+
+    <Separator layoutX="6.0" layoutY="279.0" prefHeight="4.0" prefWidth="900.0" />
+
+
+    <Button layoutX="309.0" layoutY="306.0" mnemonicParsing="false"  onAction="#displayEvents" prefHeight="34.0" prefWidth="161.0" text="Display Events" />
+
+
+
+</children>
+</AnchorPane>

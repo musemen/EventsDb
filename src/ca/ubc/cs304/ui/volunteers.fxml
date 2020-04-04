@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="370.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageVolunteers">
+<children>
+    <Label layoutX="221.0" layoutY="50.0" style="-fx-font: NORMAL 15 Tahoma;" text="Count number of volunteers for each event">
+    </Label>
+
+    <Button layoutX="304.0" layoutY="99.0" onAction="#countVolunteers" mnemonicParsing="false" prefHeight="19.0" prefWidth="92.0" text="Count" />
+
+    <Separator layoutY="180.0" prefHeight="10.0" prefWidth="700.0" />
+
+    <Label layoutX="233.0" layoutY="219.0" style="-fx-font: NORMAL 15 Tahoma;" text="Count number of volunteers for each event">
+    </Label>
+
+    <TextField fx:id="USER" layoutX="283.0" layoutY="249.0" promptText="Username" />
+    <Button layoutX="292.0" layoutY="329.0" mnemonicParsing="false" onAction="#searchByName" prefHeight="26.0" prefWidth="117.0" text="Calculate" />
+
+</children>
+</AnchorPane>

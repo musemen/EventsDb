@@ -6,11 +6,24 @@ import ca.ubc.cs304.delegates.TerminalTransactionsDelegate;
 import ca.ubc.cs304.model.BranchModel;
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.TerminalTransactions;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This is the main controller class that will orchestrate everything.
  */
-public class mainController implements LoginWindowDelegate, TerminalTransactionsDelegate {
+public class mainController {
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
 
@@ -19,8 +32,7 @@ public class mainController implements LoginWindowDelegate, TerminalTransactions
 	}
 
 	private void start() {
-		loginWindow = new LoginWindow();
-		loginWindow.showFrame(this);
+
 	}
 
 	/**
@@ -35,9 +47,6 @@ public class mainController implements LoginWindowDelegate, TerminalTransactions
 			// Once connected, remove login window and start text transaction flow
 			loginWindow.dispose();
 
-			TerminalTransactions transaction = new TerminalTransactions();
-			transaction.setupDatabase(this);
-			transaction.showMainMenu(this);
 		} else {
 			loginWindow.handleLoginFailed();
 
@@ -48,78 +57,6 @@ public class mainController implements LoginWindowDelegate, TerminalTransactions
 			}
 		}
 	}
-
-	/**
-	 * TermainalTransactionsDelegate Implementation
-	 * <p>
-	 * Insert a branch with the given info
-	 */
-	public void insertBranch(BranchModel model) {
-		dbHandler.insertBranch(model);
-	}
-
-	/**
-	 * TermainalTransactionsDelegate Implementation
-	 * <p>
-	 * Delete branch with given branch ID.
-	 */
-	public void deleteBranch(int branchId) {
-		dbHandler.deleteBranch(branchId);
-	}
-
-	/**
-	 * TermainalTransactionsDelegate Implementation
-	 * <p>
-	 * Update the branch name for a specific ID
-	 */
-
-	public void updateBranch(int branchId, String name) {
-		dbHandler.updateBranch(branchId, name);
-	}
-
-	/**
-	 * TermainalTransactionsDelegate Implementation
-	 * <p>
-	 * Displays information about varies bank branches.
-	 */
-	public void showBranch() {
-		BranchModel[] models = dbHandler.getBranchInfo();
-
-		for (int i = 0; i < models.length; i++) {
-			BranchModel model = models[i];
-
-			// simplified output formatting; truncation may occur
-			System.out.printf("%-10.10s", model.getId());
-			System.out.printf("%-20.20s", model.getName());
-			if (model.getAddress() == null) {
-				System.out.printf("%-20.20s", " ");
-			} else {
-				System.out.printf("%-20.20s", model.getAddress());
-			}
-			System.out.printf("%-15.15s", model.getCity());
-			if (model.getPhoneNumber() == 0) {
-				System.out.printf("%-15.15s", " ");
-			} else {
-				System.out.printf("%-15.15s", model.getPhoneNumber());
-			}
-
-			System.out.println();
-		}
-	}
-
-	/**
-	 * TerminalTransactionsDelegate Implementation
-	 * <p>
-	 * The TerminalTransaction instance tells us that it is done with what it's
-	 * doing so we are cleaning up the connection since it's no longer needed.
-	 */
-	public void terminalTransactionsFinished() {
-		dbHandler.close();
-		dbHandler = null;
-
-		System.exit(0);
-	}
-
 	/**
 	 * TerminalTransactionsDelegate Implementation
 	 * <p>
@@ -132,4 +69,53 @@ public class mainController implements LoginWindowDelegate, TerminalTransactions
 
 	}
 
+	public void ManageOrgButtonPress(ActionEvent actionEvent) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("../ui/organizations.fxml"));
+				Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+				Stage stage = new Stage();
+				stage.setTitle("Organizations View");
+				stage.setScene(scene);
+				stage.show();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	public void ManageVolButtonPress(ActionEvent actionEvent) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("../ui/volunteers.fxml"));
+			Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+			Stage stage = new Stage();
+			stage.setTitle("Organizations View");
+			stage.setScene(scene);
+			stage.show();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void ManageUserButtonPress(ActionEvent actionEvent) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("../ui/users.fxml"));
+			Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+			Stage stage = new Stage();
+			stage.setTitle("Organizations View");
+			stage.setScene(scene);
+			stage.show();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void listTables(ActionEvent actionEvent) {
+//todo print out all tables
+
+	}
 }
