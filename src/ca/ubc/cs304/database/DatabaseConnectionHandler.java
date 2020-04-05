@@ -21,8 +21,20 @@ public class DatabaseConnectionHandler {
 	private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
 	private static final String EXCEPTION_TAG = "[EXCEPTION]";
 	private static final String WARNING_TAG = "[WARNING]";
+	private String username = "ora_musashah";
+	private String password = "a12748661";
 
-	private Connection connection = null;
+	private Connection connection;
+
+	{
+		try {
+			connection = DriverManager.getConnection(ORACLE_URL, username, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	;
 
 	public DatabaseConnectionHandler() {
 		try {
@@ -198,8 +210,7 @@ public class DatabaseConnectionHandler {
 
 	public void updateRating(String rid, int val, String d) {
 		try {
-			PreparedStatement ps = connection
-					.prepareStatement("UPDATE Rating SET Value = ?, Description = ? WHERE RatingID = ?");
+			PreparedStatement ps = connection.prepareStatement("UPDATE Rating SET Value = ?, Description = ? WHERE RatingID = ?");
 			ps.setInt(1, val);
 			ps.setString(2, d);
 			ps.setString(3, rid);
@@ -549,11 +560,7 @@ public class DatabaseConnectionHandler {
 
 	public boolean login(String username, String password) {
 		try {
-			if (connection != null) {
-				connection.close();
-			}
 
-			connection = DriverManager.getConnection(ORACLE_URL, username, password);
 			connection.setAutoCommit(false);
 
 			System.out.println("\nConnected to Oracle!");
