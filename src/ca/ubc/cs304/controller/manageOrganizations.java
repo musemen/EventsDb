@@ -60,11 +60,50 @@ public class manageOrganizations {
         databaseConnectionHandler.removeOrgnaization(eventIdtoDelete);
 
     }
+     public void displayEvents(ActionEvent actionEvent) {
+            TableView table = new TableView();
+            Scene scene = new Scene(new Group());
+            Stage stage = new Stage();
+            stage.setTitle("Event");
+            stage.setWidth(900);
+            stage.setHeight(500);
 
-    public void displayEvents(ActionEvent actionEvent) {
-        //todo
-        System.out.println("display all events");
-    }
+            Label label = new Label("Event");
+            TableColumn vT = new TableColumn("Event Id");
+            vT.setCellValueFactory(new PropertyValueFactory<>("eventID"));
+
+            TableColumn vT1 = new TableColumn("Venue Id");
+            vT1.setCellValueFactory(new PropertyValueFactory<>("venueID"));
+
+            TableColumn vT2 = new TableColumn("Organization Id");
+            vT2.setCellValueFactory(new PropertyValueFactory<>("OrganizationID"));
+
+            TableColumn vT3 = new TableColumn("Name");
+            vT3.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+            TableColumn vT4 = new TableColumn("Start Time");
+            vT4.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
+
+            TableColumn vT5 = new TableColumn("End Time");
+            vT5.setCellValueFactory(new PropertyValueFactory<>("EndTime"));
+
+            TableColumn vT6 = new TableColumn("URL");
+            vT6.setCellValueFactory(new PropertyValueFactory<>("Url"));
+
+            table.getColumns().removeAll();
+            table.getColumns().addAll(vT,vT1,vT2,vT3,vT4,vT5,vT6);
+
+            for (event object: databaseConnectionHandler.getevent()) {
+                table.getItems().add(object);
+            }
+            final VBox vbox = new VBox();
+            vbox.setSpacing(7);
+            vbox.setPadding(new Insets(10,10,10,10));
+            vbox.getChildren().addAll(label, table);
+            ((Group) scene.getRoot()).getChildren().addAll(vbox);
+            stage.setScene(scene);
+            stage.show();
+        }
 
 
     private Date getDateHelper(TextField time) {

@@ -461,21 +461,41 @@ public class DatabaseConnectionHandler {
 			rollbackConnection();
 		}
 	}
+	public ArrayList<event> getevent(){
+		ArrayList<event> list = new ArrayList<event>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Event");
+
+			while(rs.next()) {
+				list.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
+						rs.getString("Name"), rs.getDate("StartTime"),
+						rs.getDate("EndTime"), rs.getString("Url")));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		return list;
+	}
 
 	// projection
-	public ArrayList<event> searchEventsByKeyWord(String keyword) {
+	public ArrayList<event> searchEventsByKeyWord(ArrayList<String> attributes, String keyword) {
 		ArrayList<event> foundEvents = new ArrayList<event>();
+		String allAttributesToReturn = String.join(", ", attributes);
+
 		try {
 			Statement s = connection.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
-					+ " UNION " + "SELECT * FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
+			ResultSet rs = s.executeQuery("SELECT " +allAttributesToReturn+ " FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
+					+ " UNION " + "SELECT "+allAttributesToReturn+ " FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
 					+ "%' AND Performer.PerformerID = PerformsAt.PerformerId AND PerformsAt.EventId = Event.EventId");
 
 			while (rs.next()) {
-				foundEvents
-						.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
-								rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
-								new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
+				foundEvents.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
+								rs.getString("Name"), rs.getDate("StartTime"),
+								rs.getDate("EndTime"), rs.getString("Url")));
 			}
 			rs.close();
 			s.close();
