@@ -1,108 +1,108 @@
 CREATE TABLE Organization (
-OrganizationID char(100),
-Name char(100),
+OrganizationID varchar2(100),
+Name varchar2(100),
 PRIMARY KEY (OrganizationID)
 );
 
 CREATE TABLE Venue (
-VenueID char(100),
+VenueID varchar2(100),
 AgeRestriction INTEGER,
-Name char(100),
+Name varchar2(100),
 Capacity INTEGER,
 PRIMARY KEY (VenueID)
 );
 
 CREATE TABLE Address (
-VenueID char(100),
-City char(100),
-Province char(100),
-ZipCode char(100),
-Street char(100),
+VenueID varchar2(100),
+City varchar2(100),
+Province varchar2(100),
+ZipCode varchar2(100),
+Street varchar2(100),
 PRIMARY KEY (VenueID, ZipCode, Street),
 FOREIGN KEY (VenueID) references Venue ON DELETE CASCADE
 );
 
 CREATE TABLE Attendee(
-Username char(100) PRIMARY KEY,
-Password char(100)
+Username varchar2(100) PRIMARY KEY,
+Password varchar2(100)
 );
 
 CREATE TABLE Event (
-EventId char(100),
-VenueId char(100) NOT NULL,
-OrganizationID char(100) NOT NULL,
-Name char(100),
+EventId varchar2(100),
+VenueId varchar2(100) NOT NULL,
+OrganizationID varchar2(100) NOT NULL,
+Name varchar2(100),
 StartTime DATE,
 EndTime DATE,
-Url char(100),
+Url varchar2(100),
 PRIMARY KEY (EventId),
 FOREIGN KEY (VenueID) references Venue ON DELETE CASCADE,
 FOREIGN KEY (OrganizationID) references Organization ON DELETE CASCADE
 );
 
 CREATE TABLE Ticket (
-TicketID char(100),
-TicketType char(100),
+TicketID varchar2(100),
+TicketType varchar2(100),
 Price FLOAT(100),
-EventID char(100) NOT NULL,
-Username char(100) NOT NULL,
-OrderNum char(100),
+EventID varchar2(100) NOT NULL,
+Username varchar2(100) NOT NULL,
+OrderNum varchar2(100),
 PRIMARY KEY (TicketID),
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE,
 FOREIGN KEY (Username) references Attendee ON DELETE CASCADE
 );
 
 CREATE TABLE Rating (
-RatingID char(100) PRIMARY KEY,
+RatingID varchar2(100) PRIMARY KEY,
 Value INT,
-Description char(100)
+Description varchar2(100)
 );
 
 CREATE TABLE GiveRating(
-Username char(100),
-RatingID char(100),
+Username varchar2(100),
+RatingID varchar2(100),
 PRIMARY KEY (Username, RatingID),
 FOREIGN KEY (Username) references Attendee ON DELETE CASCADE,
 FOREIGN KEY (RatingID) references Rating ON DELETE CASCADE
 );
 
 CREATE TABLE ReceiveRating(
-EventID char(100),
-RatingID char(100),
+EventID varchar2(100),
+RatingID varchar2(100),
 PRIMARY KEY (EventID, RatingID),
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE,
 FOREIGN KEY (RatingID) references Rating ON DELETE CASCADE
 );
 
 CREATE TABLE Volunteer(
-Username char(100),
+Username varchar2(100),
 TimeVolunteered INT,
-Password char(100),
+Password varchar2(100),
 PRIMARY KEY (Username)
 );
 
 CREATE TABLE VolunteerClassification(
-Username char(100) PRIMARY KEY,
-VolunteerType char(100),
+Username varchar2(100) PRIMARY KEY,
+VolunteerType varchar2(100),
 FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE
 );
 
 CREATE TABLE VolunteersAt(
-Username char(100) PRIMARY KEY,
-EventID char(100),
+Username varchar2(100) PRIMARY KEY,
+EventID varchar2(100),
 FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE,
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE
 );
 
 CREATE TABLE Performer(
-PerformerID char(100) PRIMARY KEY,
-Genre char(100),
-Name char(100)
+PerformerID varchar2(100) PRIMARY KEY,
+Genre varchar2(100),
+Name varchar2(100)
 );
 
 CREATE TABLE PerformsAt(
-PerformerId char(100),
-EventId char(100),
+PerformerId varchar2(100),
+EventId varchar2(100),
 PRIMARY KEY (PerformerID, EventID),
 FOREIGN KEY (PerformerID) references Performer ON DELETE CASCADE,
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE
@@ -130,7 +130,7 @@ INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('7',0,'Columbia 
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('8',0,'PNE Amphitheatre',10000);
 
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('1','1','1','Vancouver Canucks vs. Pittsburgh Penguins',TO_DATE('2019-09-01', 'YYYY-MM-DD'),TO_DATE('2019-09-01', 'YYYY-MM-DD'),'https://www.ticketmaster.ca/vancouver-canucks');
-INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
+INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22', 'YYYY-MM-DD'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('4','2','2','Free Icecream - Rain Or Shine',TO_DATE( '2020-05-01'),TO_DATE( '2020-05-08', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('3','3','3','$5 Bubble Tea Promo - Limtied Time Offer',TO_DATE( '2020-02-25', 'YYYY-MM-DD'),TO_DATE( '2020-03-25', 'YYYY-MM-DD'), 'https://www.yelp.ca/biz/dragon-ball-tea-house-vancouver');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('5','4','4','Soft Opening - First 100 People 50% Off',TO_DATE( '2020-06-22', 'YYYY-MM-DD'),TO_DATE( '2020-06-22', 'YYYY-MM-DD'),'https://thepokeguy.ca/');
@@ -165,7 +165,7 @@ INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES(
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('1','Vancouver','BC','V6B 6G1','800 Griffiths Way');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('2','Vancouver','BC','V6T 0C5','6001 University Blvd');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('3','Vancouver','BC','V6H 1Z3','1007 W King Edward Ave');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('4','Vancouver','BC','V6B 2Z3','420 Richards St');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('4','Vancouver','BC','V6B 2Z3','420 Rivarchar2ds St');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('5','vancouver','BC','V6E 1M3','1022 Davie St');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('6','Vancouver','BC','V6B 1H4','11 W Hastings St #410');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('7','New Westminster','BC','V3L 1B1','8-552 Columbia St');
