@@ -21,8 +21,8 @@ public class DatabaseConnectionHandler {
 	private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
 	private static final String EXCEPTION_TAG = "[EXCEPTION]";
 	private static final String WARNING_TAG = "[WARNING]";
-	private String username = "ora_musashah";
-	private String password = "a12748661";
+	private String username = "ora_dorukes";
+	private String password = "a52316759";
 
 	private Connection connection;
 
@@ -148,8 +148,8 @@ public class DatabaseConnectionHandler {
 			ps.setString(2, ee.getVenueID());
 			ps.setString(3, ee.getOrganizationID());
 			ps.setString(4, ee.getName());
-			ps.setDate(5, new java.sql.Date(ee.getStartTime().getTime()));
-			ps.setDate(6, new java.sql.Date(ee.getEndTime().getTime()));
+			ps.setDate(5, ee.getStartTime());
+			ps.setDate(6, ee.getEndTime());
 			ps.setString(7, ee.getUrl());
 			ps.executeUpdate();
 			connection.commit();
@@ -278,7 +278,7 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	public void removeOrgnaization(String oid) {
+	public void removeOrganization(String oid) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM Organization WHERE OrganizationID = ?");
 			ps.setString(1, oid);
@@ -463,19 +463,21 @@ public class DatabaseConnectionHandler {
 	}
 
 	// projection
-	public ArrayList<event> searchEventsByKeyWord(String keyword) {
+	public ArrayList<event> searchEventsByKeyWord(ArrayList<String> attributes, String keyword) {
 		ArrayList<event> foundEvents = new ArrayList<event>();
+		String allAttributesToReturn = String.join(", ", attributes);
+
 		try {
 			Statement s = connection.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
-					+ " UNION " + "SELECT * FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
+			ResultSet rs = s.executeQuery("SELECT " +allAttributesToReturn+ " FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
+					+ " UNION " + "SELECT "+allAttributesToReturn+ " FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
 					+ "%' AND Performer.PerformerID = PerformsAt.PerformerId AND PerformsAt.EventId = Event.EventId");
 
 			while (rs.next()) {
 				foundEvents
 						.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
-								rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
-								new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
+								rs.getString("Name"), rs.getDate("StartTime"),
+								rs.getDate("EndTime"), rs.getString("Url")));
 			}
 			rs.close();
 			s.close();
@@ -547,8 +549,8 @@ public class DatabaseConnectionHandler {
 
 			while (rs.next()) {
 				found.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
-						rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
-						new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
+						rs.getString("Name"), new java.sql.Date(rs.getDate("StartTime").getTime()),
+						new java.sql.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
 			}
 
 			rs.close();

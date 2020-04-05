@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class event {
 

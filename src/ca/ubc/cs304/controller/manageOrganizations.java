@@ -2,21 +2,11 @@ package ca.ubc.cs304.controller;
 
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.sql.Date;
 import ca.ubc.cs304.model.event;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class manageOrganizations {
     public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
@@ -51,13 +41,13 @@ public class manageOrganizations {
         event newEvent = new event(eventId,venueId,orgId,name,startTime,endTime,url);
 
         //todo
-        System.out.println("add this shit to fucking db lol");
+        databaseConnectionHandler.addEvent(newEvent);
     }
 
 
     public void deleteEvent(ActionEvent actionEvent) {
         String eventIdtoDelete = EIDDel.getText();
-        databaseConnectionHandler.removeOrgnaization(eventIdtoDelete);
+        databaseConnectionHandler.removeEvent(eventIdtoDelete);
 
     }
 

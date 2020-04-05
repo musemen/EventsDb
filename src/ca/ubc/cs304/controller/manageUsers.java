@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+
 public class manageUsers {
     public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
 
@@ -55,5 +57,7 @@ public class manageUsers {
     }
 
     public void SearchProjection(ActionEvent actionEvent) {
+        ArrayList<String> attributes;
+        databaseConnectionHandler.searchEventsByKeyWord();
     }
 }
