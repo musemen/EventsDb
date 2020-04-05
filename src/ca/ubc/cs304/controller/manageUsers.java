@@ -57,7 +57,29 @@ public class manageUsers {
     }
 
     public void SearchProjection(ActionEvent actionEvent) {
-        ArrayList<String> attributes;
-        databaseConnectionHandler.searchEventsByKeyWord();
+        ArrayList<String> res = new ArrayList<>();
+
+        if (EIDCHECK.isSelected()){
+            res.add("EventId");
+        }
+        if (VIDCHECK.isSelected()){
+            res.add("VenueId");
+        }
+        if (OIDCHECK.isSelected()){
+            res.add("OrganizationId");
+        }
+        if (STIMECHECK.isSelected()){
+            res.add("StartTime");
+        }
+        if (ETIMECHECK.isSelected()){
+            res.add("EndTime");
+        }
+        if (URLCHECK.isSelected()){
+            res.add("Url");
+        }
+        if (NAMECHECK.isSelected()){
+            res.add("Name");
+        }
+        databaseConnectionHandler.searchEventsByKeyWord(res,KEYWORD.getText());
     }
 }

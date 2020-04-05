@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         DatabaseConnectionHandler dbHandler = new DatabaseConnectionHandler();
-        boolean didConnect = dbHandler.login("ora_dorukes","a52316759");
+        boolean didConnect = dbHandler.login("ora_musashah","a12748661");
 
         if (didConnect) {
             Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
