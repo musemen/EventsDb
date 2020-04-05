@@ -140,6 +140,7 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// insert
 	public void addEvent(event ee) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO Event VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -159,6 +160,7 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// remove
 	public void removeEvent(String eventID) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM Event WHERE EventId = ?");
@@ -208,6 +210,7 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// update
 	public void updateRating(String rid, int val, String d) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("UPDATE Rating SET Value = ?, Description = ? WHERE RatingID = ?");
@@ -459,14 +462,14 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// projection
 	public ArrayList<event> searchEventsByKeyWord(String keyword) {
 		ArrayList<event> foundEvents = new ArrayList<event>();
 		try {
 			Statement s = connection.createStatement();
-			ResultSet rs = s
-					.executeQuery("SELECT * from Event, PerformsAt, Performer " + "WHERE Performer.Genre LIKE '%"
-							+ keyword + "%' AND PerformsAt.PerformerId = Performer.PerformerID"
-							+ "AND PerformsAt.EventId = Event.EventId");
+			ResultSet rs = s.executeQuery("SELECT * FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
+					+ " UNION " + "SELECT * FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
+					+ "%' AND Performer.PerformerID = PerformsAt.PerformerId AND PerformsAt.EventId = Event.EventId");
 
 			while (rs.next()) {
 				foundEvents
@@ -500,6 +503,7 @@ public class DatabaseConnectionHandler {
 		return status;
 	}
 
+	// selection
 	public ArrayList<event> selectEvents(String eid, String vid, String oid, String n, String s, String e, String u)
 			throws ParseException {
 		ArrayList<event> found = new ArrayList<event>();
@@ -523,29 +527,28 @@ public class DatabaseConnectionHandler {
 			String query = "SELECT * FROM Event WHERE " + String.join(" AND", conditions);
 			PreparedStatement ps = connection.prepareStatement(query);
 
-			
-			if(!s.isEmpty()){
+			if (!s.isEmpty()) {
 				query.concat(" AND StartTime = ?");
 				ps = connection.prepareStatement(query);
 				java.util.Date st = new SimpleDateFormat("yyyy-MM-dd").parse(s);
 				ps.setDate(1, new java.sql.Date(st.getTime()));
 			}
-			if(!e.isEmpty()){
+			if (!e.isEmpty()) {
 				query.concat(" AND EndTime = ?");
 				ps = connection.prepareStatement(query);
 				java.util.Date et = new SimpleDateFormat("yyyy-MM-dd").parse(e);
-				if(!s.isEmpty()){
+				if (!s.isEmpty()) {
 					ps.setDate(2, new java.sql.Date(et.getTime()));
 				} else {
 					ps.setDate(1, new java.sql.Date(et.getTime()));
 				}
 			}
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()){
-				found.add(new event(rs.getString("EventId"), rs.getString("VenueId"),
-				rs.getString("OrganizationID"), rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
-				new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
+
+			while (rs.next()) {
+				found.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
+						rs.getString("Name"), new java.util.Date(rs.getDate("StartTime").getTime()),
+						new java.util.Date(rs.getDate("EndTime").getTime()), rs.getString("Url")));
 			}
 
 			rs.close();
