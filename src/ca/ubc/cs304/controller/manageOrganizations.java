@@ -12,7 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ca.ubc.cs304.model.event;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -49,29 +51,18 @@ public class manageOrganizations {
         String url = URL.getText();
 
         event newEvent = new event(eventId,venueId,orgId,name,startTime,endTime,url);
-
-        //todo
-        System.out.println("add this shit to fucking db lol");
+        databaseConnectionHandler.addEvent(newEvent);
     }
-
 
     public void deleteEvent(ActionEvent actionEvent) {
         String eventIdtoDelete = EIDDel.getText();
-        databaseConnectionHandler.removeOrgnaization(eventIdtoDelete);
+        databaseConnectionHandler.removeEvent(eventIdtoDelete);
 
     }
-
-    public void displayEvents(ActionEvent actionEvent) {
-        //todo
-        System.out.println("display all events");
-    }
-
 
     private Date getDateHelper(TextField time) {
         String text = time.getText();
-        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        java.time.LocalDate textFieldAsDate = java.time.LocalDate.parse(text, formatter);
-        java.sql.Date sqlDate = java.sql.Date.valueOf(textFieldAsDate);
-        return sqlDate;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-DD"); 
+        return (Date)format.parse(text);
     }
 }

@@ -5,10 +5,10 @@
 
 <AnchorPane prefHeight="370.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageVolunteers">
 <children>
-    <Label layoutX="221.0" layoutY="50.0" style="-fx-font: NORMAL 15 Tahoma;" text="Count number of volunteers for each event">
+    <Label layoutX="221.0" layoutY="50.0" style="-fx-font: NORMAL 15 Tahoma;" text="Top Volunteer by hours">
     </Label>
 
-    <Button layoutX="304.0" layoutY="99.0" onAction="#countVolunteers" mnemonicParsing="false" prefHeight="19.0" prefWidth="92.0" text="Count" />
+    <Button layoutX="304.0" layoutY="99.0" onAction="#topVolunteer" mnemonicParsing="false" prefHeight="19.0" prefWidth="92.0" text="TopVolunteer" />
 
     <Separator layoutY="180.0" prefHeight="10.0" prefWidth="700.0" />
 
