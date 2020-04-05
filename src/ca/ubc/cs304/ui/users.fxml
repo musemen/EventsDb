@@ -8,7 +8,7 @@
     <Label layoutX="355.0" layoutY="10.0" prefHeight="19.0" prefWidth="160.0" style="-fx-font: NORMAL 15 Tahoma;" text="Update Rating">
     </Label>
 
-    <TextField fx:id="EIDUpdate" layoutX="20.0" layoutY="56.0" promptText="Rating Id" />
+    <TextField fx:id="RIDUpdate" layoutX="20.0" layoutY="56.0" promptText="Rating Id" />
     <TextField fx:id="VAL" layoutX="223.0" layoutY="56.0" promptText="Value" />
     <TextField fx:id="DESC" layoutX="418.0" layoutY="56.0" promptText="Description" />
     <Button layoutX="629.0" layoutY="56.0" mnemonicParsing="false" onAction="#updateRating" prefHeight="27.0" prefWidth="149.0" text="Update" />

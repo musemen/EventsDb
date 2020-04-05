@@ -1,14 +1,16 @@
 package ca.ubc.cs304.controller;
 
+import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 public class manageUsers {
+    public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
 
     @FXML
-    TextField EIDUpdate;
+    TextField RIDUpdate;
     @FXML
     TextField VAL;
     @FXML
@@ -46,7 +48,7 @@ public class manageUsers {
 
 
     public void updateRating(ActionEvent actionEvent) {
-
+        databaseConnectionHandler.updateRating(RIDUpdate.getText(), Integer.parseInt(VAL.getText()), DESC.getText());
     }
 
     public void SearchSelection(ActionEvent actionEvent) {

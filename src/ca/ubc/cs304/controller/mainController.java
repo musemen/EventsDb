@@ -33,7 +33,7 @@ public class mainController {
 			fxmlLoader.setLocation(getClass().getResource("../ui/volunteers.fxml"));
 			Scene scene = new Scene(fxmlLoader.load(), 800, 400);
 			Stage stage = new Stage();
-			stage.setTitle("Organizations View");
+			stage.setTitle("Volunteer View");
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -48,7 +48,7 @@ public class mainController {
 			fxmlLoader.setLocation(getClass().getResource("../ui/users.fxml"));
 			Scene scene = new Scene(fxmlLoader.load(), 800, 400);
 			Stage stage = new Stage();
-			stage.setTitle("Organizations View");
+			stage.setTitle("User View");
 			stage.setScene(scene);
 			stage.show();
 		}
