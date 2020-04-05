@@ -88,8 +88,9 @@ FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE
 );
 
 CREATE TABLE VolunteersAt(
-Username varchar2(100) PRIMARY KEY,
+Username varchar2(100),
 EventID varchar2(100),
+PRIMARY KEY (Username, EventID),
 FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE,
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE
 );
@@ -130,7 +131,7 @@ INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('7',0,'Columbia 
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('8',0,'PNE Amphitheatre',10000);
 
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('1','1','1','Vancouver Canucks vs. Pittsburgh Penguins',TO_DATE('2019-09-01', 'YYYY-MM-DD'),TO_DATE('2019-09-01', 'YYYY-MM-DD'),'https://www.ticketmaster.ca/vancouver-canucks');
-INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22', 'YYYY-MM-DD'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
+INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22','YYYY-MM-DD'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('4','2','2','Free Icecream - Rain Or Shine',TO_DATE( '2020-05-01'),TO_DATE( '2020-05-08', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('3','3','3','$5 Bubble Tea Promo - Limtied Time Offer',TO_DATE( '2020-02-25', 'YYYY-MM-DD'),TO_DATE( '2020-03-25', 'YYYY-MM-DD'), 'https://www.yelp.ca/biz/dragon-ball-tea-house-vancouver');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('5','4','4','Soft Opening - First 100 People 50% Off',TO_DATE( '2020-06-22', 'YYYY-MM-DD'),TO_DATE( '2020-06-22', 'YYYY-MM-DD'),'https://thepokeguy.ca/');
