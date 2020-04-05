@@ -82,4 +82,8 @@ public class manageUsers {
         }
         databaseConnectionHandler.searchEventsByKeyWord(res,KEYWORD.getText());
     }
+
+    public void CalculateAverageRating(ActionEvent actionEvent) {
+        System.out.println("TEST");
+    }
 }

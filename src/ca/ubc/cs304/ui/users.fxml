@@ -2,10 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="372.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageUsers">
+<AnchorPane prefHeight="4000.0" prefWidth="30000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ubc.cs304.controller.manageUsers">
 <children>
-    <Label layoutX="355.0" layoutY="10.0" prefHeight="19.0" prefWidth="160.0" style="-fx-font: NORMAL 15 Tahoma;" text="Update Rating">
+    <Label layoutX="338.0" layoutY="14.0" prefHeight="19.0" prefWidth="160.0" style="-fx-font: NORMAL 15 Tahoma;" text="Update Rating">
     </Label>
 
     <TextField fx:id="RIDUpdate" layoutX="20.0" layoutY="56.0" promptText="Rating Id" />
@@ -41,6 +42,19 @@
       <CheckBox fx:id="URLCHECK" layoutX="579.0" layoutY="318.0" mnemonicParsing="false" text="URL" />
       <CheckBox fx:id="OIDCHECK" layoutX="629.0" layoutY="318.0" mnemonicParsing="false" text="Organization Id" />
       <Button layoutX="735.0" layoutY="327.0" mnemonicParsing="false" onAction="#SearchProjection" text="Search" />
+      <Label graphicTextGap="20.0" layoutX="339.0" layoutY="287.0" text="Projection Search">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+    <Separator layoutX="17.0" layoutY="379.0" prefHeight="4.0" prefWidth="900.0" />
+      <Label layoutX="384.0" layoutY="383.0" />
+      <Label layoutX="340.0" layoutY="383.0" text="Average Rating of Event">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EIDVOLCHECK" layoutX="223.0" layoutY="420.0" promptText="Event Id" />
+      <Button layoutX="440.0" layoutY="420.0"  onAction="#CalculateAverageRating" mnemonicParsing="false" text="Calculate" />
 
 
 
