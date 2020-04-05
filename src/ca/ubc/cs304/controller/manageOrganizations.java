@@ -63,12 +63,12 @@ public class manageOrganizations {
 
     public void displayEvents(ActionEvent actionEvent) {
 
-                TableView table = new TableView();
-                Scene scene = new Scene(new Group());
-                Stage stage = new Stage();
-                stage.setTitle("Event");
-                stage.setWidth(900);
-                stage.setHeight(500);
+        TableView table = new TableView();
+        Scene scene = new Scene(new Group());
+        Stage stage = new Stage();
+        stage.setTitle("Event");
+        stage.setWidth(900);
+        stage.setHeight(500);
         Label label = new Label("Event");
         TableColumn vT = new TableColumn("Event Id");
         System.out.println("display all events");

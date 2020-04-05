@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import ca.ubc.cs304.model.*;
+import javafx.util.Pair;
 
 /**
  * This class handles all database related transactions
@@ -485,18 +486,27 @@ public class DatabaseConnectionHandler {
 	public ArrayList<event> searchEventsByKeyWord(ArrayList<String> attributes, String keyword) {
 		ArrayList<event> foundEvents = new ArrayList<event>();
 		String allAttributesToReturn = String.join(", ", attributes);
-
+		System.out.println(allAttributesToReturn);
 		try {
 			Statement s = connection.createStatement();
 			ResultSet rs = s.executeQuery("SELECT " +allAttributesToReturn+ " FROM Event " + "WHERE Event.Name LIKE '%" + keyword + "%'"
 					+ " UNION " + "SELECT "+allAttributesToReturn+ " FROM Event, Performer, PerformsAt WHERE Performer.Genre LIKE '%" + keyword
 					+ "%' AND Performer.PerformerID = PerformsAt.PerformerId AND PerformsAt.EventId = Event.EventId");
 
+			String eventid = (attributes.contains("EventID") ? rs.getString("EventId") : null);
+			String venueid = (attributes.contains("VenueId") ? rs.getString("VenueId") : null);
+			String orgid = (attributes.contains("OrganizationID") ? rs.getString("OrganizationID") : null);
+			Date starttime = (attributes.contains("StartTime") ? rs.getDate("StartTime") : null);
+			Date endtime = (attributes.contains("EndTime") ? rs.getDate("EndTime") : null);
+			String url = (attributes.contains("Url") ? rs.getString("Url") : null);
+			String name = (attributes.contains("Name") ? rs.getString("Name") : null);
+
+
 			while (rs.next()) {
-				foundEvents.add(new event(rs.getString("EventId"), rs.getString("VenueId"), rs.getString("OrganizationID"),
-								rs.getString("Name"), rs.getDate("StartTime"),
-								rs.getDate("EndTime"), rs.getString("Url")));
+				foundEvents.add(new event(eventid, venueid, orgid, name,starttime,endtime,url));
 			}
+
+
 			rs.close();
 			s.close();
 		} catch (SQLException e) {
@@ -639,4 +649,42 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 	}
+
+	public ArrayList<Pair<String,Integer>> countVolunteers() {
+		ArrayList<Pair<String,Integer>> res =  new ArrayList<>();
+
+		try {
+			Statement s = connection.createStatement();
+			ResultSet rs = s.executeQuery("SELECT Event.Name AS Eventname, Count(*) As VolunteerCount FROM Event, Volunteer, VolunteersAt WHERE Event.EventId = VolunteersAt.EventID AND VolunteersAt.Username = Volunteer.Username GROUP BY Event.Name");
+
+			while (rs.next()){
+				res.add(new Pair<String,Integer>(rs.getString("Eventname"),rs.getInt("VolunteerCount")));
+			}
+			rs.close();
+			s.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		return res;
+	}
+
+	public ArrayList<String> getAllTables() {
+		ArrayList<String> list = new ArrayList<>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("select TNAME from tab");
+			while(rs.next()) {
+				list.add(rs.getString("TNAME"));
+			}
+			rs.close();
+			stmt.close();
+		}
+		catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		return list;
+	}
 }
+
