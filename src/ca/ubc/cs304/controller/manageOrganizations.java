@@ -1,5 +1,6 @@
 package ca.ubc.cs304.controller;
 
+import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class manageOrganizations {
+    public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
 
     @FXML
     TextField EID;
@@ -55,8 +57,8 @@ public class manageOrganizations {
 
     public void deleteEvent(ActionEvent actionEvent) {
         String eventIdtoDelete = EIDDel.getText();
-        //todo
-        System.out.println("delete this event from db");
+        databaseConnectionHandler.removeOrgnaization(eventIdtoDelete);
+
     }
 
     public void displayEvents(ActionEvent actionEvent) {

@@ -280,7 +280,7 @@ public class DatabaseConnectionHandler {
 
 	public void removeOrgnaization(String oid) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Organization WHERE OrgnaizationID = ?");
+			PreparedStatement ps = connection.prepareStatement("DELETE FROM Organization WHERE OrganizationID = ?");
 			ps.setString(1, oid);
 			int rowCount = ps.executeUpdate();
 			if (rowCount == 0) {

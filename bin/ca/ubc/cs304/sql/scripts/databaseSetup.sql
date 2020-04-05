@@ -1,108 +1,108 @@
 CREATE TABLE Organization (
-OrganizationID CHAR(100),
-Name CHAR(100),
+OrganizationID char(100),
+Name char(100),
 PRIMARY KEY (OrganizationID)
 );
 
 CREATE TABLE Venue (
-VenueID CHAR(100),
+VenueID char(100),
 AgeRestriction INTEGER,
-Name CHAR(100),
+Name char(100),
 Capacity INTEGER,
 PRIMARY KEY (VenueID)
 );
 
 CREATE TABLE Address (
-VenueID CHAR(100),
-City CHAR(100),
-Province CHAR(100),
-ZipCode CHAR(100),
-Street CHAR(100),
+VenueID char(100),
+City char(100),
+Province char(100),
+ZipCode char(100),
+Street char(100),
 PRIMARY KEY (VenueID, ZipCode, Street),
 FOREIGN KEY (VenueID) references Venue ON DELETE CASCADE
 );
 
 CREATE TABLE Attendee(
-Username CHAR(100) PRIMARY KEY,
-Password CHAR(100)
+Username char(100) PRIMARY KEY,
+Password char(100)
 );
 
 CREATE TABLE Event (
-EventId CHAR(100),
-VenueId CHAR(100) NOT NULL,
-OrganizationID CHAR(100) NOT NULL,
-Name CHAR(100),
+EventId char(100),
+VenueId char(100) NOT NULL,
+OrganizationID char(100) NOT NULL,
+Name char(100),
 StartTime DATE,
 EndTime DATE,
-Url CHAR(100),
+Url char(100),
 PRIMARY KEY (EventId),
 FOREIGN KEY (VenueID) references Venue ON DELETE CASCADE,
 FOREIGN KEY (OrganizationID) references Organization ON DELETE CASCADE
 );
 
 CREATE TABLE Ticket (
-TicketID CHAR(100),
-TicketType CHAR(100),
+TicketID char(100),
+TicketType char(100),
 Price FLOAT(100),
-EventID CHAR(100) NOT NULL,
-Username CHAR(100) NOT NULL,
-OrderNum CHAR(100),
+EventID char(100) NOT NULL,
+Username char(100) NOT NULL,
+OrderNum char(100),
 PRIMARY KEY (TicketID),
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE,
 FOREIGN KEY (Username) references Attendee ON DELETE CASCADE
 );
 
 CREATE TABLE Rating (
-RatingID CHAR(100) PRIMARY KEY,
+RatingID char(100) PRIMARY KEY,
 Value INT,
-Description CHAR(100)
+Description char(100)
 );
 
 CREATE TABLE GiveRating(
-Username CHAR(100),
-RatingID CHAR(100),
+Username char(100),
+RatingID char(100),
 PRIMARY KEY (Username, RatingID),
 FOREIGN KEY (Username) references Attendee ON DELETE CASCADE,
 FOREIGN KEY (RatingID) references Rating ON DELETE CASCADE
 );
 
 CREATE TABLE ReceiveRating(
-EventID CHAR(100),
-RatingID CHAR(100),
+EventID char(100),
+RatingID char(100),
 PRIMARY KEY (EventID, RatingID),
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE,
 FOREIGN KEY (RatingID) references Rating ON DELETE CASCADE
 );
 
 CREATE TABLE Volunteer(
-Username CHAR(100),
+Username char(100),
 TimeVolunteered INT,
-Password CHAR(100),
+Password char(100),
 PRIMARY KEY (Username)
 );
 
 CREATE TABLE VolunteerClassification(
-Username CHAR(100) PRIMARY KEY,
-VolunteerType CHAR(100),
+Username char(100) PRIMARY KEY,
+VolunteerType char(100),
 FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE
 );
 
 CREATE TABLE VolunteersAt(
-Username CHAR(100) PRIMARY KEY,
-EventID CHAR(100),
+Username char(100) PRIMARY KEY,
+EventID char(100),
 FOREIGN KEY (Username) references Volunteer ON DELETE CASCADE,
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE
 );
 
 CREATE TABLE Performer(
-PerformerID CHAR(100) PRIMARY KEY,
-Genre CHAR(100),
-Name CHAR(100)
+PerformerID char(100) PRIMARY KEY,
+Genre char(100),
+Name char(100)
 );
 
 CREATE TABLE PerformsAt(
-PerformerId CHAR(100),
-EventId CHAR(100),
+PerformerId char(100),
+EventId char(100),
 PRIMARY KEY (PerformerID, EventID),
 FOREIGN KEY (PerformerID) references Performer ON DELETE CASCADE,
 FOREIGN KEY (EventID) references Event ON DELETE CASCADE
@@ -149,18 +149,18 @@ INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES(
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('6','Regular',5.00,'4','musamohannad','5');
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('7','Free',0.00,'5','Jcena','6');
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('8','Regular',150.00,'6','dorukesriyeli','7');
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('9','VIP',300.00,'6','musamohannad',8);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('10','Regular',150.00,'6','alvinlo',9);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('11','VIP',50.00,'7','Gkikzales',10);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('12','Regular',10.00,'7','musamohannad',11);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('13','Free',0.00,'9','alvinlo',12);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('14','Free',0.00,'10','dorukresiyeli',13);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('15','Free',0.00,'10','Jcena', 15);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('16', 'Free',0.00,'10','Gkikzales', 16);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('17', 'Regular',10.00,'11','alvinlo', 17);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('18', 'Regular',10.00,'11','dorukresiyeli', 18);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('19', 'VIP',30.00,'11','musamohannad', 19);
-INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('20', 'VIP',30.00,'11','Gkikzales', 20);
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('9','VIP',300.00,'6','musamohannad','8');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('10','Regular',150.00,'6','alvinlo','9');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('11','VIP',50.00,'7','Gkikzales','10');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('12','Regular',10.00,'7','musamohannad','11');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('13','Free',0.00,'9','alvinlo','12');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('14','Free',0.00,'10','dorukesriyeli','13');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('15','Free',0.00,'10','Jcena', '15');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('16', 'Free',0.00,'10','Gkikzales', '16');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('17', 'Regular',10.00,'11','alvinlo', '17');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('18', 'Regular',10.00,'11','dorukesriyeli', '18');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('19', 'VIP',30.00,'11','musamohannad', '19');
+INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('20', 'VIP',30.00,'11','Gkikzales', '20');
 
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('1','Vancouver','BC','V6B 6G1','800 Griffiths Way');
 INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('2','Vancouver','BC','V6T 0C5','6001 University Blvd');
@@ -281,7 +281,7 @@ INSERT INTO Performer(PerformerID,Genre,Name) VALUES('12','Food','Miss Siam Food
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('13','Food','Japadog Food Truck');
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('14','Food','Mini Donut Food Truck');
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('15','Music', 'Drake');
-INSERT INTO Performer(PerformerID,Genre,Name) VALUES('16'), 'Music','Eminem');
+INSERT INTO Performer(PerformerID,Genre,Name) VALUES('16', 'Music','Eminem');
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('17','Entertainment','Face Paint Station');
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('18','Entertainment','Traditional Dance Performance');
 INSERT INTO Performer(PerformerID,Genre,Name) VALUES('19','Entertainment','Cirque Du Soleil');
@@ -292,7 +292,6 @@ INSERT INTO PerformsAt(PerformerId,EventId) VALUES('10','1');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('11','1');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('7','2');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('7','3');
-INSERT INTO PerformsAt(PerformerId,EventId) VALUES('21','3');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('6','5');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('3','6');
 INSERT INTO PerformsAt(PerformerId,EventId) VALUES('9','7');
