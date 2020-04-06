@@ -92,7 +92,7 @@ public class manageOrganizations extends DatabaseConnectionHandler{
             table.getColumns().removeAll();
             table.getColumns().addAll(vT,vT1,vT2,vT3,vT4,vT5,vT6);
 
-            for (event object: super.getevent()) {
+            for (event object: super.geteventsAll()) {
                 table.getItems().add(object);
             }
             final VBox vbox = new VBox();
@@ -111,5 +111,8 @@ public class manageOrganizations extends DatabaseConnectionHandler{
         java.time.LocalDate textFieldAsDate = java.time.LocalDate.parse(text, formatter);
         java.sql.Date sqlDate = java.sql.Date.valueOf(textFieldAsDate);
         return sqlDate;
+
+
+
     }
 }
