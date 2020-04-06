@@ -707,7 +707,7 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
-		System.out.println(avg);
+//		System.out.println(avg);
 		return avg;
 	}
 }
