@@ -48,6 +48,9 @@ public class manageUsers {
     @FXML
     CheckBox NAMECHECK;
 
+    @FXML
+    TextField EIDVOLCHECK;
+
 
     public void updateRating(ActionEvent actionEvent) {
         databaseConnectionHandler.updateRating(RIDUpdate.getText(), Integer.parseInt(VAL.getText()), DESC.getText());
@@ -83,7 +86,7 @@ public class manageUsers {
         databaseConnectionHandler.searchEventsByKeyWord(res,KEYWORD.getText());
     }
 
-    public void CalculateAverageRating(ActionEvent actionEvent) {
-        System.out.println("TEST");
+    public void getAverageRating(ActionEvent actionEvent) {
+        databaseConnectionHandler.getAverageRating(EIDVOLCHECK.getText());
     }
 }

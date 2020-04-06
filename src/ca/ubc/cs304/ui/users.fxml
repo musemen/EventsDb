@@ -54,7 +54,7 @@
          </font>
       </Label>
       <TextField fx:id="EIDVOLCHECK" layoutX="223.0" layoutY="420.0" promptText="Event Id" />
-      <Button layoutX="440.0" layoutY="420.0"  onAction="#CalculateAverageRating" mnemonicParsing="false" text="Calculate" />
+      <Button layoutX="440.0" layoutY="420.0"  onAction="#getAverageRating" mnemonicParsing="false" text="Calculate" />
 
 
 

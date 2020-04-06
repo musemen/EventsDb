@@ -686,5 +686,29 @@ public class DatabaseConnectionHandler {
 		}
 		return list;
 	}
+
+	public int getAverageRating(String eventID) {
+		int avg = 0;
+		try {
+			Statement s = connection.createStatement();
+			ResultSet rs = s.executeQuery("SELECT\n" + "  AVG(Rating.Value) as AverageRating\n" + "FROM\n"
+					+ " Event,\n" + " ReceiveRating,\n" + " Rating\n" + "WHERE\n"
+					+ " Event.EventId = ReceiveRating.EventId\n" + " AND ReceiveRating.RatingID = Rating.RatingID\n"
+					+ " AND Event.EventID = " + eventID);
+
+			while (rs.next()){
+				avg = rs.getInt("AverageRating");
+			}
+
+			connection.commit();
+			rs.close();
+			s.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		System.out.println(avg);
+		return avg;
+	}
 }
 
