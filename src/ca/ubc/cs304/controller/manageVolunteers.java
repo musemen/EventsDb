@@ -16,8 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-public class manageVolunteers {
-    DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
+public class manageVolunteers extends DatabaseConnectionHandler {
     @FXML
     TextField USER;
 
@@ -38,7 +37,7 @@ public class manageVolunteers {
         table.getColumns().removeAll();
         table.getColumns().addAll(vT,vT1);
 
-        for (Pair<String,Integer> object: databaseConnectionHandler.countVolunteers()) {
+        for (Pair<String,Integer> object: super.countVolunteers()) {
             table.getItems().add(object);
         }
         final VBox vbox = new VBox();
@@ -50,9 +49,8 @@ public class manageVolunteers {
         stage.show();
     }
 
-    public void searchByName(ActionEvent actionEvent) {
-        //todo
-
+    public void getVolunteerAtEveryEvent(ActionEvent actionEvent) {
+        super.getVolunteerAtEveryEvent();
         String userID = USER.getText();
         System.out.println("SUM TimeVolunteered for this userID");
     }

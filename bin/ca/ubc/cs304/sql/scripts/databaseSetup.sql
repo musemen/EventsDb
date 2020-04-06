@@ -130,9 +130,16 @@ INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('6',0,'Powell St
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('7',0,'Columbia St', 2000);
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('8',0,'PNE Amphitheatre',10000);
 
+
+INSERT INTO Attendee(Username,Password) VALUES('alvinlo','alvinlopsw');
+INSERT INTO Attendee(Username,Password) VALUES('musamohannad','musamohannadpsw');
+INSERT INTO Attendee(Username,Password) VALUES('dorukesriyeli', 'dorukesriyelipsw');
+INSERT INTO Attendee(Username,Password) VALUES('Jcena','Jcena1234');
+INSERT INTO Attendee(Username,Password) VALUES('Gkikzales','TrustthenaturalRecursion1');
+
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('1','1','1','Vancouver Canucks vs. Pittsburgh Penguins',TO_DATE('2019-09-01', 'YYYY-MM-DD'),TO_DATE('2019-09-01', 'YYYY-MM-DD'),'https://www.ticketmaster.ca/vancouver-canucks');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22','YYYY-MM-DD'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
-INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('4','2','2','Free Icecream - Rain Or Shine',TO_DATE( '2020-05-01'),TO_DATE( '2020-05-08', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
+INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('4','2','2','Free Icecream - Rain Or Shine',TO_DATE( '2020-05-01', 'YYYY-MM-DD'),TO_DATE( '2020-05-08', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('3','3','3','$5 Bubble Tea Promo - Limtied Time Offer',TO_DATE( '2020-02-25', 'YYYY-MM-DD'),TO_DATE( '2020-03-25', 'YYYY-MM-DD'), 'https://www.yelp.ca/biz/dragon-ball-tea-house-vancouver');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('5','4','4','Soft Opening - First 100 People 50% Off',TO_DATE( '2020-06-22', 'YYYY-MM-DD'),TO_DATE( '2020-06-22', 'YYYY-MM-DD'),'https://thepokeguy.ca/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('6','1','5','Martin Garrix World Tour',TO_DATE( '2020-08-22', 'YYYY-MM-DD'),TO_DATE( '2020-08-24', 'YYYY-MM-DD'), 'https://martingarrix.com/');
@@ -236,12 +243,6 @@ INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R10');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R23');
 
 
-INSERT INTO Attendee(Username,Password) VALUES('alvinlo','alvinlopsw');
-INSERT INTO Attendee(Username,Password) VALUES('musamohannad','musamohannadpsw');
-INSERT INTO Attendee(Username,Password) VALUES('dorukesriyeli', 'dorukesriyelipsw');
-INSERT INTO Attendee(Username,Password) VALUES('Jcena','Jcena1234');
-INSERT INTO Attendee(Username,Password) VALUES('Gkikzales','TrustthenaturalRecursion1');
-
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Alvinl',30,'Alvin123');
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Mmohannad',10,'Musa123');
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Doruk',20,'Doru123');
@@ -255,13 +256,29 @@ INSERT INTO VolunteerClassification(Username,VolunteerType) VALUES('Jcena','Vete
 INSERT INTO VolunteerClassification(Username,VolunteerType) VALUES('Gkikzales','Expert');
 
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','1');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','2');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','3');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','4');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','5');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','6');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','7');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','1');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','2');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','3');
-INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','5');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','4');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','5');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','6');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','7');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','8');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','9');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','10');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Mmohannad','11');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','8');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Doruk','6');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Doruk','2');
-INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','7');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','9');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','10');
+INSERT INTO VolunteersAt(Username,EventID) VALUES('Alvinl','11');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Jcena','4');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Jcena','5');
 INSERT INTO VolunteersAt(Username,EventID) VALUES('Gkikzales','6');

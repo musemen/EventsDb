@@ -2,6 +2,7 @@ package ca.ubc.cs304.database;
 
 import ca.ubc.cs304.model.BranchModel;
 
+import java.awt.desktop.SystemEventListener;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,11 +26,15 @@ public class DatabaseConnectionHandler {
 	private String username = "ora_musashah";
 	private String password = "a12748661";
 
-	private Connection connection;
+	private static Connection connection;
 
 	{
 		try {
-			connection = DriverManager.getConnection(ORACLE_URL, username, password);
+			if (connection == null){
+				connection = DriverManager.getConnection(ORACLE_URL, username, password);
+				System.out.println("connection created");
+
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -225,8 +230,8 @@ public class DatabaseConnectionHandler {
 			}
 
 			connection.commit();
-
 			ps.close();
+
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
@@ -710,5 +715,33 @@ public class DatabaseConnectionHandler {
 //		System.out.println(avg);
 		return avg;
 	}
+
+	public ArrayList<String> getVolunteerAtEveryEvent() {
+		ArrayList<String> volunteers = new ArrayList<String>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT Volunteer.Username FROM \n" +
+							"Volunteer \n" +
+							"WHERE NOT EXISTS\n" +
+							"((SELECT Event.EventId FROM Event) MINUS\n" +
+							"(SELECT VolunteersAt.EventID FROM VolunteersAt \n" +
+							"WHERE VolunteersAt.Username = Volunteer.Username))");
+
+			while (rs.next()) {
+				volunteers.add(rs.getString("Username"));
+			}
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		System.out.println(volunteers.size());
+		return volunteers;
+	}
 }
 
+
+	

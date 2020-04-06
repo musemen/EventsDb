@@ -17,9 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class manageOrganizations {
-    public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
-
+public class manageOrganizations extends DatabaseConnectionHandler{
     @FXML
     TextField EID;
     @FXML
@@ -50,13 +48,13 @@ public class manageOrganizations {
         event newEvent = new event(eventId,venueId,orgId,name,startTime,endTime,url);
 
         //todo
-        databaseConnectionHandler.addEvent(newEvent);
+        super.addEvent(newEvent);
     }
 
 
     public void deleteEvent(ActionEvent actionEvent) {
         String eventIdtoDelete = EIDDel.getText();
-        databaseConnectionHandler.removeEvent(eventIdtoDelete);
+        super.removeEvent(eventIdtoDelete);
 
     }
 
@@ -94,7 +92,7 @@ public class manageOrganizations {
             table.getColumns().removeAll();
             table.getColumns().addAll(vT,vT1,vT2,vT3,vT4,vT5,vT6);
 
-            for (event object: databaseConnectionHandler.getevent()) {
+            for (event object: super.getevent()) {
                 table.getItems().add(object);
             }
             final VBox vbox = new VBox();

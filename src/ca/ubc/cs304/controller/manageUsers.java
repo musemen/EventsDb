@@ -8,8 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class manageUsers {
-    public DatabaseConnectionHandler databaseConnectionHandler = new DatabaseConnectionHandler();
+public class manageUsers extends DatabaseConnectionHandler{
 
     @FXML
     TextField RIDUpdate;
@@ -53,7 +52,7 @@ public class manageUsers {
 
 
     public void updateRating(ActionEvent actionEvent) {
-        databaseConnectionHandler.updateRating(RIDUpdate.getText(), Integer.parseInt(VAL.getText()), DESC.getText());
+        super.updateRating(RIDUpdate.getText(), Integer.parseInt(VAL.getText()), DESC.getText());
     }
 
     public void SearchSelection(ActionEvent actionEvent) {
@@ -83,10 +82,10 @@ public class manageUsers {
         if (NAMECHECK.isSelected()){
             res.add("Name");
         }
-        databaseConnectionHandler.searchEventsByKeyWord(res,KEYWORD.getText());
+        super.searchEventsByKeyWord(res,KEYWORD.getText());
     }
 
     public void getAverageRating(ActionEvent actionEvent) {
-        databaseConnectionHandler.getAverageRating(EIDVOLCHECK.getText());
+        super.getAverageRating(EIDVOLCHECK.getText());
     }
 }

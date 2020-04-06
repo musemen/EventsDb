@@ -130,6 +130,13 @@ INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('6',0,'Powell St
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('7',0,'Columbia St', 2000);
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('8',0,'PNE Amphitheatre',10000);
 
+
+INSERT INTO Attendee(Username,Password) VALUES('alvinlo','alvinlopsw');
+INSERT INTO Attendee(Username,Password) VALUES('musamohannad','musamohannadpsw');
+INSERT INTO Attendee(Username,Password) VALUES('dorukesriyeli', 'dorukesriyelipsw');
+INSERT INTO Attendee(Username,Password) VALUES('Jcena','Jcena1234');
+INSERT INTO Attendee(Username,Password) VALUES('Gkikzales','TrustthenaturalRecursion1');
+
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('1','1','1','Vancouver Canucks vs. Pittsburgh Penguins',TO_DATE('2019-09-01', 'YYYY-MM-DD'),TO_DATE('2019-09-01', 'YYYY-MM-DD'),'https://www.ticketmaster.ca/vancouver-canucks');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('2','2','2','Buy One Get One Free Icecream - Rain Or Shine',TO_DATE( '2020-03-22','YYYY-MM-DD'),TO_DATE( '2020-03-31', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
 INSERT INTO Event (EventId,VenueId,OrganizationID,Name,StartTime,EndTime,Url) VALUES('4','2','2','Free Icecream - Rain Or Shine',TO_DATE( '2020-05-01', 'YYYY-MM-DD'),TO_DATE( '2020-05-08', 'YYYY-MM-DD'), 'http://rainorshineicecream.com/events/');
@@ -235,12 +242,6 @@ INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R14');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R10');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R23');
 
-
-INSERT INTO Attendee(Username,Password) VALUES('alvinlo','alvinlopsw');
-INSERT INTO Attendee(Username,Password) VALUES('musamohannad','musamohannadpsw');
-INSERT INTO Attendee(Username,Password) VALUES('dorukesriyeli', 'dorukesriyelipsw');
-INSERT INTO Attendee(Username,Password) VALUES('Jcena','Jcena1234');
-INSERT INTO Attendee(Username,Password) VALUES('Gkikzales','TrustthenaturalRecursion1');
 
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Alvinl',30,'Alvin123');
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Mmohannad',10,'Musa123');

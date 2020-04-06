@@ -12,11 +12,11 @@
 
     <Separator layoutY="180.0" prefHeight="10.0" prefWidth="700.0" />
 
-    <Label layoutX="221.0" layoutY="219.0" style="-fx-font: NORMAL 15 Tahoma;" text="Find Volunteers that Have Volunteered at each Event">
+    <Label layoutX="221.0" layoutY="219.0" style="-fx-font: NORMAL 15 Tahoma;" text="Find Volunteers that Have Volunteered at Every Event">
     </Label>
 
 <!--    <TextField fx:id="USER" layoutX="283.0" layoutY="249.0" promptText="Username" />-->
-    <Button layoutX="304.0" layoutY="269.0" mnemonicParsing="false" onAction="#searchByName" prefHeight="26.0" prefWidth="117.0" text="Find Volunteers" />
+    <Button layoutX="304.0" layoutY="269.0" mnemonicParsing="false" onAction="#getVolunteerAtEveryEvent" prefHeight="26.0" prefWidth="117.0" text="Find Volunteers" />
 
 </children>
 </AnchorPane>
