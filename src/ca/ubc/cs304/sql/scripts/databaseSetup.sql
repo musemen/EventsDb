@@ -130,6 +130,14 @@ INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('6',0,'Powell St
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('7',0,'Columbia St', 2000);
 INSERT INTO Venue (VenueID,AgeRestriction,Name,Capacity) VALUES('8',0,'PNE Amphitheatre',10000);
 
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('1','Vancouver','BC','V6B 6G1','800 Griffiths Way');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('2','Vancouver','BC','V6T 0C5','6001 University Blvd');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('3','Vancouver','BC','V6H 1Z3','1007 W King Edward Ave');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('4','Vancouver','BC','V6B 2Z3','420 Rivarchar2ds St');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('5','vancouver','BC','V6E 1M3','1022 Davie St');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('6','Vancouver','BC','V6B 1H4','11 W Hastings St #410');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('7','New Westminster','BC','V3L 1B1','8-552 Columbia St');
+INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('8','Vancouver','BC','V5K 5J1','2901 E Hastings St');
 
 INSERT INTO Attendee(Username,Password) VALUES('alvinlo','alvinlopsw');
 INSERT INTO Attendee(Username,Password) VALUES('musamohannad','musamohannadpsw');
@@ -169,15 +177,6 @@ INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES(
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('18', 'Regular',10.00,'11','dorukesriyeli', '18');
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('19', 'VIP',30.00,'11','musamohannad', '19');
 INSERT INTO Ticket (TicketID,TicketType,Price,EventID,Username,OrderNum) VALUES('20', 'VIP',30.00,'11','Gkikzales', '20');
-
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('1','Vancouver','BC','V6B 6G1','800 Griffiths Way');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('2','Vancouver','BC','V6T 0C5','6001 University Blvd');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('3','Vancouver','BC','V6H 1Z3','1007 W King Edward Ave');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('4','Vancouver','BC','V6B 2Z3','420 Rivarchar2ds St');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('5','vancouver','BC','V6E 1M3','1022 Davie St');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('6','Vancouver','BC','V6B 1H4','11 W Hastings St #410');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('7','New Westminster','BC','V3L 1B1','8-552 Columbia St');
-INSERT INTO Address (VenueID,City,Province,ZipCode,Street) VALUES('8','Vancouver','BC','V5K 5J1','2901 E Hastings St');
 
 INSERT INTO Rating (RatingID,Value,Description) VALUES('R1',1,'Terrible');
 INSERT INTO Rating (RatingID,Value,Description) VALUES('R6',2,'Pretty Bad');
@@ -241,7 +240,6 @@ INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R5');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R14');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R10');
 INSERT INTO ReceiveRating(EventID,RatingID) VALUES('11','R23');
-
 
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Alvinl',30,'Alvin123');
 INSERT INTO Volunteer(Username,TimeVolunteered,Password) VALUES('Mmohannad',10,'Musa123');

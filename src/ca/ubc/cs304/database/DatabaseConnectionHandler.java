@@ -10,8 +10,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ca.ubc.cs304.model.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Pair;
-
+import org.w3c.dom.Text;
+import javafx.scene.control.TextField;
 /**
  * This class handles all database related transactions
  */
@@ -64,90 +76,6 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	public void deleteBranch(int branchId) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM branch WHERE branch_id = ?");
-			ps.setInt(1, branchId);
-
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " Branch " + branchId + " does not exist!");
-			}
-
-			connection.commit();
-
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void insertBranch(BranchModel model) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO branch VALUES (?,?,?,?,?)");
-			ps.setInt(1, model.getId());
-			ps.setString(2, model.getName());
-			ps.setString(3, model.getAddress());
-			ps.setString(4, model.getCity());
-			if (model.getPhoneNumber() == 0) {
-				ps.setNull(5, java.sql.Types.INTEGER);
-			} else {
-				ps.setInt(5, model.getPhoneNumber());
-			}
-
-			ps.executeUpdate();
-			connection.commit();
-
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public BranchModel[] getBranchInfo() {
-		ArrayList<BranchModel> result = new ArrayList<BranchModel>();
-
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM branch");
-
-			while (rs.next()) {
-				BranchModel model = new BranchModel(rs.getString("branch_addr"), rs.getString("branch_city"),
-						rs.getInt("branch_id"), rs.getString("branch_name"), rs.getInt("branch_phone"));
-				result.add(model);
-			}
-
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-
-		return result.toArray(new BranchModel[result.size()]);
-	}
-
-	public void updateBranch(int id, String name) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("UPDATE branch SET branch_name = ? WHERE branch_id = ?");
-			ps.setString(1, name);
-			ps.setInt(2, id);
-
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " Branch " + id + " does not exist!");
-			}
-
-			connection.commit();
-
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
 	// insert
 	public void addEvent(event ee) {
 		try {
@@ -186,38 +114,6 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	public void addRating(Rating r) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Rating VALUES (?,?,?)");
-			ps.setString(1, r.getRatingID());
-			ps.setInt(2, r.getValue());
-			ps.setString(3, r.getDescription());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeRating(String rid) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Rating WHERE RatingID = ?");
-			ps.setString(1, rid);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + rid + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
 	// update
 	public void updateRating(String rid, int val, String d) {
 		try {
@@ -240,235 +136,7 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	public void addVolunteer(Volunteer v) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Volunteer VALUES (?,?,?)");
-			ps.setString(1, v.getUsername());
-			ps.setInt(2, v.getTimeVolunteered());
-			ps.setString(3, v.getPassword());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
 
-	public void removeVolunteer(String u) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Volunteer WHERE Username = ?");
-			ps.setString(1, u);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + u + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addOrgnaization(Organization o) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Organization VALUES (?,?)");
-			ps.setString(1, o.getOrganizationID());
-			ps.setString(2, o.getName());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeOrganization(String oid) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Organization WHERE OrganizationID = ?");
-			ps.setString(1, oid);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + oid + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addTicket(Ticket t) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Ticket VALUES (?,?,?,?,?,?)");
-			ps.setString(1, t.getTicketID());
-			ps.setString(2, t.getTicketType());
-			ps.setDouble(3, t.getPrice());
-			ps.setString(4, t.getEventID());
-			ps.setString(6, t.getOrderNum());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeTicket(String tid) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Ticket WHERE TicketID = ?");
-			ps.setString(1, tid);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + tid + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addVenue(Venue v) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Venue VALUES (?,?,?,?)");
-			ps.setString(1, v.getVenueID());
-			ps.setInt(3, v.getAgeRestriction());
-			ps.setString(4, v.getName());
-			ps.setInt(6, v.getCapacity());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeVenue(String vid) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Venue WHERE VenueID = ?");
-			ps.setString(1, vid);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + vid + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addAddress(Address a) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Address VALUES (?,?,?,?,?)");
-			ps.setString(1, a.getVenueID());
-			ps.setString(2, a.getCity());
-			ps.setString(3, a.getProvince());
-			ps.setString(4, a.getZipCode());
-			ps.setString(5, a.getStreet());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeAddress(String vid, String zc, String s) {
-		try {
-			PreparedStatement ps = connection
-					.prepareStatement("DELETE FROM Address WHERE VenueID = ? AND ZipCode = ? AND Street = ?");
-			ps.setString(1, vid);
-			ps.setString(2, zc);
-			ps.setString(3, s);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + vid + ", " + zc + " " + s + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addAttendee(Attendee a) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Attendee VALUES (?,?)");
-			ps.setString(1, a.getUsername());
-			ps.setString(2, a.getPassword());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removeAttendee(String u) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Attendee WHERE Username = ?");
-			ps.setString(1, u);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + u + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void addPerformer(Performer p) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO Performer VALUES (?,?,?)");
-			ps.setString(1, p.getPerformerID());
-			ps.setString(2, p.getGenre());
-			ps.setString(3, p.getName());
-			ps.executeUpdate();
-			connection.commit();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-
-	public void removePerformer(String pid) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM Performer WHERE PerformerID = ?");
-			ps.setString(1, pid);
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " " + pid + " does not exist");
-			}
-			connection.commit();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
 	public ArrayList<event> geteventsAll(){
 		ArrayList<event> list = new ArrayList<event>();
 		try {
@@ -515,54 +183,58 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
+
 		return foundEvents;
 	}
 
-	public String getVolunteerStatus(String username) {
-		String status = "";
-		try {
-			Statement s = connection.createStatement();
-			ResultSet rs = s.executeQuery(
-					"SELECT VolunteerType FROM Volunteer,VolunteerClassification WHERE Volunteer.Username = " + username
-							+ " AND VolunteerClassification.TimeVolunteered = Volunteer.TimeVolunteered");
-			while (rs.next()) {
-				status = rs.getString("VolunteerType");
+
+	// selection
+	public ArrayList<event> selectEvent(ArrayList<String> condition, ArrayList<String> values){
+		String[] attributes = {"EventId","VenueId", "OrganizationID", "Name", "StartTime", "EndTime", "Url" };
+		ArrayList<String> usedAttributes = new ArrayList<>();
+		ArrayList<String> usedConditions = new ArrayList<>();
+		ArrayList<String> usedValues = new ArrayList<>();
+		ArrayList<event> events = new ArrayList<>();
+		ArrayList<String> all = new ArrayList<>();
+
+		for (int i = 0; i < values.size(); i++){
+			if (!condition.get(i).equals("")) {
+				all.add(attributes[i]);
+				usedAttributes.add(attributes[i]);
+				all.add(condition.get(i));
+				all.add(values.get(i));
+				all.add("AND");
 			}
+		}
+		if (all.get(all.size() -1).equals("AND")) {
+			all.remove(all.size() - 1);
+		}
+		try {
+			Statement stmt = connection.createStatement();
+			String query = "SELECT * FROM Event" + " WHERE " + String.join(" ", all);
+			ResultSet rs = stmt.executeQuery(query);
+
+
+			while (rs.next()) {
+				String eventid = (usedAttributes.contains("EventID") ? rs.getString("EventId") : null);
+				String venueid = (usedAttributes.contains("VenueId") ? rs.getString("VenueId") : null);
+				String orgid = (usedAttributes.contains("OrganizationID") ? rs.getString("OrganizationID") : null);
+				Date starttime = (usedAttributes.contains("StartTime") ? rs.getDate("StartTime") : null);
+				Date endtime = (usedAttributes.contains("EndTime") ? rs.getDate("EndTime") : null);
+				String url = (usedAttributes.contains("Url") ? rs.getString("Url") : null);
+				String name = (usedAttributes.contains("Name") ? rs.getString("Name") : null);
+				events.add(new event(eventid, venueid, orgid, name, starttime, endtime, url));
+			}
+
+			rs.close();
+			stmt.close();
+
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
-		return status;
+		return events;
 	}
-
-	// selection
-	public void selectEvent(HashMap<String, Object> hm){
-
-		System.out.println(hm);
-//		for (int i = 0; i < attributes.size(); i++){
-//			all.add(attributes.get(i));
-//			all.add(condition.get(i));
-//			all.add(values.get(i));
-//		}
-//		try {
-//			Statement stmt = connection.createStatement();
-//			String query = "SELECT * FROM Event" + String.join("AND ", all);
-//			ResultSet rs = stmt.executeQuery(query);
-//
-//
-//			while (rs.next()) {
-//				System.out.println(rs.getString(1));
-//			}
-//
-//			rs.close();
-//			stmt.close();
-//
-//		} catch (SQLException e) {
-//			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-//			rollbackConnection();
-//		}
-	}
-
 	public boolean login(String username, String password) {
 		try {
 
@@ -584,53 +256,15 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	public void databaseSetup() {
-		dropBranchTableIfExists();
-
-		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate(
-					"CREATE TABLE branch (branch_id integer PRIMARY KEY, branch_name varchar2(20) not null, branch_addr varchar2(50), branch_city varchar2(20) not null, branch_phone integer)");
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-
-		BranchModel branch1 = new BranchModel("123 Charming Ave", "Vancouver", 1, "First Branch", 1234567);
-		insertBranch(branch1);
-
-		BranchModel branch2 = new BranchModel("123 Coco Ave", "Vancouver", 2, "Second Branch", 1234568);
-		insertBranch(branch2);
-	}
-
-	private void dropBranchTableIfExists() {
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-
-			while (rs.next()) {
-				if (rs.getString(1).toLowerCase().equals("branch")) {
-					stmt.execute("DROP TABLE branch");
-					break;
-				}
-			}
-
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-	}
-
-	public ArrayList<Pair<String,Integer>> countVolunteers() {
-		ArrayList<Pair<String,Integer>> res =  new ArrayList<>();
-
+	//join
+	public HashMap<String,Address> getAddressOfVenues(){
+		HashMap<String,Address> ret = new HashMap<String, Address>();
 		try {
 			Statement s = connection.createStatement();
-			ResultSet rs = s.executeQuery("SELECT Event.Name AS Eventname, Count(*) As VolunteerCount FROM Event, Volunteer, VolunteersAt WHERE Event.EventId = VolunteersAt.EventID AND VolunteersAt.Username = Volunteer.Username GROUP BY Event.Name");
+			ResultSet rs = s.executeQuery("SELECT VenueID, Name, City, Province, ZipCode, Street FROM Venue, Address WHERE Venue.VenueID = Address.VenueID");
 
-			while (rs.next()){
-				res.add(new Pair<String,Integer>(rs.getString("Eventname"),rs.getInt("VolunteerCount")));
+			while (rs.next()) {
+				ret.put(rs.getString("Name"), new Address(rs.getString("VenueID"), rs.getString("City"), rs.getString("Province"), rs.getString("ZipCode"), rs.getString("Street")));
 			}
 			rs.close();
 			s.close();
@@ -638,6 +272,28 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
+		return ret;
+
+	}
+
+	public HashMap<String, Integer> countVolunteers() {
+		HashMap<String, Integer> res =  new HashMap<>();
+
+		try {
+			Statement s = connection.createStatement();
+			ResultSet rs = s.executeQuery("SELECT Event.Name AS Eventname, Count(*) As VolunteerCount FROM Event, Volunteer, VolunteersAt WHERE Event.EventId = VolunteersAt.EventID AND VolunteersAt.Username = Volunteer.Username GROUP BY Event.Name");
+
+			while (rs.next()){
+				res.put((rs.getString("Eventname")),rs.getInt("VolunteerCount"));
+			}
+
+			rs.close();
+			s.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+		System.out.println(res);
 		return res;
 	}
 
@@ -679,12 +335,24 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
-//		System.out.println(avg);
+
+
+		Stage dialogStage = new Stage();
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		TextArea nameField = new TextArea("The Average Rating of the Event is: " + Integer.toString(avg)+"/5");
+		nameField.setFont(Font.font("Verdana", FontWeight.BOLD, 15 ));
+
+		VBox vbox = new VBox(nameField);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setPadding(new Insets(15));
+		dialogStage.setScene(new Scene(vbox));
+		dialogStage.show();
+		dialogStage.setTitle("Average Rating");
 		return avg;
 	}
 
-	public ArrayList<String> getVolunteerAtEveryEvent() {
-		ArrayList<String> volunteers = new ArrayList<String>();
+	public int getVolunteerAtEveryEvent() {
+		int result = 0;
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(
@@ -696,7 +364,7 @@ public class DatabaseConnectionHandler {
 							"WHERE VolunteersAt.Username = Volunteer.Username))");
 
 			while (rs.next()) {
-				volunteers.add(rs.getString("Username"));
+				result ++;
 			}
 
 			rs.close();
@@ -705,8 +373,20 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
-		System.out.println(volunteers.size());
-		return volunteers;
+
+		Stage dialogStage = new Stage();
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		TextArea nameField = new TextArea("Number of Volunteers who Volunteered at every event: " + Integer.toString(result));
+		nameField.setFont(Font.font("Verdana", FontWeight.BOLD, 15 ));
+
+		VBox vbox = new VBox(nameField);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setPadding(new Insets(15));
+		dialogStage.setScene(new Scene(vbox));
+		dialogStage.show();
+		dialogStage.setTitle("Volunteer at Every Event");
+
+		return result;
 	}
 }
 

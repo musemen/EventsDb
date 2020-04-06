@@ -82,7 +82,7 @@ public class mainController {
 		stage.setTitle("Tables");
 		stage.setWidth(350);
 		stage.setHeight(500);
-		Label label = new Label("Tables");
+		Label label = new Label("All Tables in the UBC Oracle Database");
 		TableColumn vT = new TableColumn("Table");
 
 		VBox vbox = new VBox();

@@ -21,32 +21,32 @@ public class manageVolunteers extends DatabaseConnectionHandler {
     TextField USER;
 
     public void countVolunteers(ActionEvent actionEvent) {
-
-        TableView table = new TableView();
-        Scene scene = new Scene(new Group());
-        Stage stage = new Stage();
-        stage.setTitle("Volunteer Count per Event");
-        stage.setWidth(900);
-        stage.setHeight(500);
-        Label label = new Label("Volunteer Count");
-        TableColumn vT = new TableColumn("Event Name");
-        vT.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        TableColumn vT1 = new TableColumn("Count");
-        vT1.setCellValueFactory(new PropertyValueFactory<>("Count"));
-
-        table.getColumns().removeAll();
-        table.getColumns().addAll(vT,vT1);
-
-        for (Pair<String,Integer> object: super.countVolunteers()) {
-            table.getItems().add(object);
-        }
-        final VBox vbox = new VBox();
-        vbox.setSpacing(1);
-        vbox.setPadding(new Insets(10,10,10,10));
-        vbox.getChildren().addAll(label, table);
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-        stage.setScene(scene);
-        stage.show();
+        super.countVolunteers();
+//        TableView table = new TableView();
+//        Scene scene = new Scene(new Group());
+//        Stage stage = new Stage();
+//        stage.setTitle("Volunteer Count per Event");
+//        stage.setWidth(900);
+//        stage.setHeight(500);
+//        Label label = new Label("Volunteer Count");
+//        TableColumn vT = new TableColumn("Event Name");
+//        vT.setCellValueFactory(new PropertyValueFactory<>("Name"));
+//        TableColumn vT1 = new TableColumn("Count");
+//        vT1.setCellValueFactory(new PropertyValueFactory<>("Count"));
+//
+//        table.getColumns().removeAll();
+//        table.getColumns().addAll(vT,vT1);
+//
+//        for (Pair<String,Integer> object: ) {
+//            table.getItems().add(object);
+//        }
+//        final VBox vbox = new VBox();
+//        vbox.setSpacing(1);
+//        vbox.setPadding(new Insets(10,10,10,10));
+//        vbox.getChildren().addAll(label, table);
+//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     public void getVolunteerAtEveryEvent(ActionEvent actionEvent) {

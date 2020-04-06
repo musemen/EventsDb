@@ -17,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.management.remote.SubjectDelegationPermission;
+
 public class manageOrganizations extends DatabaseConnectionHandler{
     @FXML
     TextField EID;
@@ -36,6 +38,7 @@ public class manageOrganizations extends DatabaseConnectionHandler{
     TextField EIDDel;
 
     public void addEvent(ActionEvent actionEvent) {
+
 
         String eventId = EID.getText();
         String venueId = VID.getText();
@@ -67,7 +70,7 @@ public class manageOrganizations extends DatabaseConnectionHandler{
         stage.setTitle("Event");
         stage.setWidth(900);
         stage.setHeight(500);
-        Label label = new Label("Event");
+        Label label = new Label("All Events");
         TableColumn vT = new TableColumn("Event Id");
         System.out.println("display all events");
         vT.setCellValueFactory(new PropertyValueFactory<>("eventID"));
@@ -103,6 +106,9 @@ public class manageOrganizations extends DatabaseConnectionHandler{
             stage.setScene(scene);
             stage.show();
         }
+    public void getAddressOfVenues(ActionEvent actionEvent) {
+        super.getAddressOfVenues();
+    }
 
 
     private Date getDateHelper(TextField time) {
@@ -111,8 +117,6 @@ public class manageOrganizations extends DatabaseConnectionHandler{
         java.time.LocalDate textFieldAsDate = java.time.LocalDate.parse(text, formatter);
         java.sql.Date sqlDate = java.sql.Date.valueOf(textFieldAsDate);
         return sqlDate;
-
-
 
     }
 }

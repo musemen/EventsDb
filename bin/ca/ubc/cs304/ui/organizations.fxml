@@ -30,7 +30,8 @@
     <Separator layoutX="6.0" layoutY="279.0" prefHeight="4.0" prefWidth="900.0" />
 
 
-    <Button layoutX="309.0" layoutY="306.0" mnemonicParsing="false"  onAction="#displayEvents" prefHeight="34.0" prefWidth="161.0" text="Display Events" />
+    <Button layoutX="309.0" layoutY="306.0" mnemonicParsing="false" onAction="#displayEvents" prefHeight="34.0" prefWidth="161.0" text="Display Events" />
+    <Button layoutX="100.0" layoutY="306.0" mnemonicParsing="false" onAction="#getAddressOfVenues" prefHeight="34.0" prefWidth="161.0" text="Get Address of venues" />
 
 
 
