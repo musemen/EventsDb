@@ -12,6 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.sql.Date;
+import java.time.LocalDate;
+
 import ca.ubc.cs304.model.event;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -113,9 +115,9 @@ public class manageOrganizations extends DatabaseConnectionHandler{
 
     private Date getDateHelper(TextField time) {
         String text = time.getText();
-        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        java.time.LocalDate textFieldAsDate = java.time.LocalDate.parse(text, formatter);
-        java.sql.Date sqlDate = java.sql.Date.valueOf(textFieldAsDate);
+        System.out.println(text);
+        LocalDate localDate = LocalDate.parse(text);
+        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
         return sqlDate;
 
     }

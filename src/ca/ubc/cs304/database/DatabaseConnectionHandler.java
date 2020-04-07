@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import ca.ubc.cs304.model.*;
 import javafx.geometry.Insets;
@@ -24,6 +25,11 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.w3c.dom.Text;
 import javafx.scene.control.TextField;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  * This class handles all database related transactions
  */
@@ -237,9 +243,7 @@ public class DatabaseConnectionHandler {
 	}
 	public boolean login(String username, String password) {
 		try {
-
 			connection.setAutoCommit(false);
-
 			System.out.println("\nConnected to Oracle!");
 			return true;
 		} catch (SQLException e) {
@@ -261,10 +265,10 @@ public class DatabaseConnectionHandler {
 		HashMap<String,Address> ret = new HashMap<String, Address>();
 		try {
 			Statement s = connection.createStatement();
-			ResultSet rs = s.executeQuery("SELECT VenueID, Name, City, Province, ZipCode, Street FROM Venue, Address WHERE Venue.VenueID = Address.VenueID");
+			ResultSet rs = s.executeQuery("SELECT Venue.VenueID, Name, City, Province, ZipCode, Street FROM Venue, Address WHERE Venue.VenueID = Address.VenueID");
 
 			while (rs.next()) {
-				ret.put(rs.getString("Name"), new Address(rs.getString("VenueID"), rs.getString("City"), rs.getString("Province"), rs.getString("ZipCode"), rs.getString("Street")));
+				ret.put(rs.getString("VenueID"), new Address(rs.getString("VenueID"), rs.getString("City"), rs.getString("Province"), rs.getString("ZipCode"), rs.getString("Street")));
 			}
 			rs.close();
 			s.close();
@@ -272,10 +276,31 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
+
+		JTable t=new JTable(buildTable(ret));
+		JPanel p=new JPanel();
+		p.add(t);
+
+		JFrame f=new JFrame();
+		f.add(p);
+		f.setTitle("Adress of Venues Based on Venue Id's");
+		f.setSize(400,400);
+		f.setVisible(true);
+		System.out.println(ret);
+
 		return ret;
-
 	}
+	public static TableModel buildTable(Map<String,Address> map) {
+		DefaultTableModel model = new DefaultTableModel(
 
+				new Object[] { "VenueId", "City", "Province", "Zipcode", "Street" }, 0
+		);
+		model.addRow(new Object[]{"VenueId", "City", "Province", "Zipcode", "Street"});
+		for (Map.Entry<String,Address> entry : map.entrySet()) {
+			model.addRow(new Object[] { entry.getKey(),entry.getValue().getCity(),entry.getValue().getProvince(),entry.getValue().getZipCode(),entry.getValue().getStreet()});
+		}
+		return model;
+	}
 	public HashMap<String, Integer> countVolunteers() {
 		HashMap<String, Integer> res =  new HashMap<>();
 
@@ -293,7 +318,15 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			rollbackConnection();
 		}
-		System.out.println(res);
+		JTable t=new JTable(toTableModel(res));
+		JPanel p=new JPanel();
+		p.add(t);
+		JFrame f=new JFrame();
+		f.add(p);
+		f.setTitle("Volunteers per event");
+		f.setSize(400,400);
+		f.setVisible(true);
+
 		return res;
 	}
 
@@ -387,6 +420,16 @@ public class DatabaseConnectionHandler {
 		dialogStage.setTitle("Volunteer at Every Event");
 
 		return result;
+	}
+	public static TableModel toTableModel(Map<?,?> map) {
+		DefaultTableModel model = new DefaultTableModel(
+				new Object[] { "Key", "Value" }, 0
+		);
+		model.addRow(new Object[] {"Event Name", "Volunteer #"});
+		for (Map.Entry<?,?> entry : map.entrySet()) {
+			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+		}
+		return model;
 	}
 }
 
