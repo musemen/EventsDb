@@ -3,9 +3,14 @@ package ca.ubc.cs304.ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 import ca.ubc.cs304.delegates.TerminalTransactionsDelegate;
+import ca.ubc.cs304.model.Address;
 import ca.ubc.cs304.model.BranchModel;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * The class is only responsible for handling terminal text inputs. 
@@ -207,5 +212,26 @@ public class TerminalTransactions {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 		return result;
+	}
+	public static TableModel buildTable(Map<String, Address> map) {
+		DefaultTableModel model = new DefaultTableModel(
+
+				new Object[] { "VenueId", "City", "Province", "Zipcode", "Street" }, 0
+		);
+		model.addRow(new Object[]{"VenueId", "City", "Province", "Zipcode", "Street"});
+		for (Map.Entry<String,Address> entry : map.entrySet()) {
+			model.addRow(new Object[] { entry.getKey(),entry.getValue().getCity(),entry.getValue().getProvince(),entry.getValue().getZipCode(),entry.getValue().getStreet()});
+		}
+		return model;
+	}
+	public static TableModel toTableModel(Map<?,?> map) {
+		DefaultTableModel model = new DefaultTableModel(
+				new Object[] { "Key", "Value" }, 0
+		);
+		model.addRow(new Object[] {"Event Name", "Volunteer #"});
+		for (Map.Entry<?,?> entry : map.entrySet()) {
+			model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+		}
+		return model;
 	}
 }

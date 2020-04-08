@@ -115,10 +115,10 @@ public class manageOrganizations extends DatabaseConnectionHandler{
 
     private Date getDateHelper(TextField time) {
         String text = time.getText();
-        System.out.println(text);
+        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        java.time.LocalDate textFieldAsDate = java.time.LocalDate.parse(text, formatter);
         LocalDate localDate = LocalDate.parse(text);
         java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
         return sqlDate;
-
     }
 }
